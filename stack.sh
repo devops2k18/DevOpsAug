@@ -106,6 +106,8 @@ worker.tomcatA.port=8009' > workers.properties
 VALIDATE $? "Creating workers.properties"
 fi
 
+systemctl restart httpd &>> $LOG
+
 cd /root
 
 if [ -f $TOMCAT_TAR_FILE ]; then
@@ -139,7 +141,6 @@ fi
 
 cd ../webapps
 
-rm -rf student.war
 
 wget https://github.com/devops2k18/DevOpsAug/raw/master/APPSTACK/student.war &>> $LOG
 
