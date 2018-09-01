@@ -139,6 +139,8 @@ fi
 
 cd ../webapps
 
+rm -rf student.war
+
 wget https://github.com/devops2k18/DevOpsAug/raw/master/APPSTACK/student.war &>> $LOG
 
 cd ../bin
