@@ -108,6 +108,8 @@ fi
 
 systemctl restart httpd &>> $LOG
 
+VALIDATE $? "restarting httpd"
+
 cd /root
 
 if [ -f $TOMCAT_TAR_FILE ]; then
@@ -140,7 +142,6 @@ else
 fi
 
 cd ../webapps
-
 
 wget https://github.com/devops2k18/DevOpsAug/raw/master/APPSTACK/student.war &>> $LOG
 
