@@ -83,27 +83,27 @@ if [ -f modjk.conf ] ; then
 	SKIP "Creating modjk.conf"
 else
 	echo 'LoadModule jk_module modules/mod_jk.so
-	JkWorkersFile conf.d/workers.properties
-	JkLogFile logs/mod_jk.log
-	JkLogLevel info
-	JkLogStampFormat "[%a %b %d %H:%M:%S %Y]"
-	JkOptions +ForwardKeySize +ForwardURICompat -ForwardDirectories
-	JkRequestLogFormat "%w %V %T"
-	JkMount /student tomcatA
-	JkMount /student/* tomcatA' > modjk.conf
-	VALIDATE $? "Creating modjk.conf"
+JkWorkersFile conf.d/workers.properties
+JkLogFile logs/mod_jk.log
+JkLogLevel info
+JkLogStampFormat "[%a %b %d %H:%M:%S %Y]"
+JkOptions +ForwardKeySize +ForwardURICompat -ForwardDirectories
+JkRequestLogFormat "%w %V %T"
+JkMount /student tomcatA
+JkMount /student/* tomcatA' > modjk.conf
+VALIDATE $? "Creating modjk.conf"
 fi
 
 if [ -f workers.properties ] ; then
 	SKIP "Creating workers.properties"
 else
 	echo '### Define workers
-	worker.list=tomcatA
-	### Set properties
-	worker.tomcatA.type=ajp13
-	worker.tomcatA.host=localhost
-	worker.tomcatA.port=8009' > workers.properties
-	VALIDATE $? "Creating workers.properties"
+worker.list=tomcatA
+### Set properties
+worker.tomcatA.type=ajp13
+worker.tomcatA.host=localhost
+worker.tomcatA.port=8009' > workers.properties
+VALIDATE $? "Creating workers.properties"
 fi
 
 cd /root
