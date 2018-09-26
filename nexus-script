@@ -1,0 +1,6 @@
+ID=$(curl -s http://10.142.0.11:8081/repository/maven-snapshots/com%2Fjdevs%2Fstudentapp%2Fmaven-metadata.xml | grep SNAP | sed -e 's/<version>//' -e 's/<\/version>//' | xargs | xargs -n1 | sort | tail -1)
+VER=$(echo $ID | cut -d - -f1)
+FINALVER=$(curl -s  http://10.142.0.11:8081/service/rest/repository/browse/maven-snapshots/com/jdevs/studentapp/ | html2text | grep -F $VER | grep -v SNAP | cut -d [ -f2 | cut -d ] -f1 | sort | tail -1)
+URL=http://10.142.0.11:8081/repository/maven-snapshots/com/jdevs/studentapp/$ID/studentapp-$FINALVER.war
+echo "student war url = $URL"
+ansible-playbook --extra-vars "student_war_url=$URL" student-deploy.yaml
